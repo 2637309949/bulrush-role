@@ -30,11 +30,18 @@
 package role
 
 import (
+	"strings"
+
 	"github.com/2637309949/bulrush"
 	"github.com/gin-gonic/gin"
 )
 
 type (
+	// Action for role
+	Action struct {
+		Roles   []string
+		permits []string
+	}
 	// Role for role
 	Role struct {
 		bulrush.PNBase
@@ -42,6 +49,21 @@ type (
 		RoleHandler    func(*gin.Context, string) bool
 	}
 )
+
+// TransformAction action tran
+func TransformAction(action string) []Action {
+	actStrs := strings.Split(action, ";")
+	actions := make([]Action, 0)
+	for _, act := range actStrs {
+		rpStr := strings.Split(act, "@")
+		if len(rpStr) == 1 {
+			actions = append(actions, Action{Roles: strings.Split(rpStr[0], ",")})
+		} else if len(rpStr) == 2 {
+			actions = append(actions, Action{Roles: strings.Split(rpStr[0], ","), permits: strings.Split(rpStr[1], ",")})
+		}
+	}
+	return actions
+}
 
 // Can do what
 func (role *Role) Can(action string) gin.HandlerFunc {
