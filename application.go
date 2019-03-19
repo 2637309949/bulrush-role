@@ -6,27 +6,6 @@
  * @desc [bulrush role plugin]
  */
 
-// Use:
-// app.Use(&plugins.Role{
-// 	FailureHandler: func(c *gin.Context, action string) {
-// 		c.JSON(http.StatusForbidden, gin.H{
-// 			"message": 	"No permission to access this api",
-// 		})
-// 	},
-// 	RoleHandler:	func(c *gin.Context, action string) bool {
-// 		fmt.Println("action :", action)
-// 		return false
-// 	},
-// })
-
-// app.Use(bulrush.PNQuick(func(testInject string, router *gin.RouterGroup, role *plugins.Role) {
-// 	router.GET("/bulrushApp", role.Can("super@testPermts"), func (c *gin.Context) {
-// 		c.JSON(http.StatusOK, gin.H{
-// 			"message": 	testInject,
-// 		})
-// 	})
-// }))
-
 package role
 
 import (
