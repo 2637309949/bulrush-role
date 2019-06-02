@@ -9,6 +9,7 @@
 package role
 
 import (
+	"net/http"
 	"strings"
 
 	"github.com/2637309949/bulrush"
@@ -29,6 +30,14 @@ type (
 	}
 )
 
+// default failure handlerss
+var defaultFailureHandler = func(c *gin.Context, action string) {
+	c.JSON(http.StatusBadRequest, gin.H{
+		"message": "This resource is not authorized",
+	})
+	c.Abort()
+}
+
 // TransformAction action tran
 func TransformAction(action string) []Action {
 	actStrs := strings.Split(action, ";")
@@ -46,6 +55,9 @@ func TransformAction(action string) []Action {
 
 // Can do what
 func (role *Role) Can(action string) gin.HandlerFunc {
+	if role.FailureHandler == nil {
+		role.FailureHandler = defaultFailureHandler
+	}
 	return func(c *gin.Context) {
 		can := role.RoleHandler(c, action)
 		if !can {
