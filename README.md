@@ -1,4 +1,5 @@
 # bulrush-role
+## Example
 Basic permissions and role control.
 - EXAMPLE:   
 ```go
@@ -12,16 +13,55 @@ app.Use(&plugins.Role{
 		fmt.Println("action :", action)
 		return false
 	},
+	RoleHandler1:	func(c *gin.Context, action string) bool {
+		fmt.Println("action :", action)
+		return false
+	},
 })
 
 app.Use(bulrush.PNQuick(func(testInject string, router *gin.RouterGroup, role *plugins.Role) {
-	router.GET("/bulrushApp", role.Can("super@testPermts"), func (c *gin.Context) {
+	router.GET("/bulrushApp", role.Can("super@testPermts"), role.Can1("super@testPermts"), func (c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
 			"message": 	testInject,
 		})
 	})
 }))
 ```
+## API
+
+### RoleHandle defined api for role rule check
+
+	func RoleHandler(c *gin.Context, action string) bool
+
+	func RoleHandler1(c *gin.Context, action string) bool
+
+	func RoleHandler2(c *gin.Context, action string) bool
+
+	func RoleHandler3(c *gin.Context, action string) bool
+
+	func RoleHandler4(c *gin.Context, action string) bool
+
+	func RoleHandler5(c *gin.Context, action string) bool
+
+	func RoleHandler6(c *gin.Context, action string) bool
+
+### Can defined api for role rule use
+
+	func Can(action string) gin.HandlerFunc
+
+	func Can1(action string) gin.HandlerFunc
+
+	func Can2(action string) gin.HandlerFunc
+
+	func Can3(action string) gin.HandlerFunc
+
+	func Can4(action string) gin.HandlerFunc
+
+	func Can5(action string) gin.HandlerFunc
+
+	func Can6(action string) gin.HandlerFunc
+
+
 ## MIT License
 
 Copyright (c) 2018-2020 Double
