@@ -1,4 +1,5 @@
 # bulrush-role
+
 ## Example
 Basic permissions and role control.
 - EXAMPLE:   
@@ -20,10 +21,13 @@ app.Use(&plugins.Role{
 })
 
 app.Use(bulrush.PNQuick(func(testInject string, router *gin.RouterGroup, role *plugins.Role) {
-	router.GET("/bulrushApp", role.Can("super@testPermts"), role.Can1("super@testPermts"), func (c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{
-			"message": 	testInject,
-		})
+	router.GET("/bulrushApp",
+		role.Can("super@testPermts"),
+		role.Can1("super@testPermts"),
+		func (c *gin.Context) {
+			c.JSON(http.StatusOK, gin.H{
+				"message": 	testInject,
+			})
 	})
 }))
 ```
