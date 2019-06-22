@@ -32,12 +32,18 @@ type (
 	}
 )
 
-// default failure handlerss
-var defaultFailureHandler = func(c *gin.Context, action string) {
-	c.JSON(http.StatusBadRequest, gin.H{
-		"message": "This resource is not authorized",
-	})
-	c.Abort()
+// New defined return a new Role
+func New() *Role {
+	r := &Role{}
+	if r.FailureHandler == nil {
+		r.FailureHandler = func(c *gin.Context, action string) {
+			c.JSON(http.StatusBadRequest, gin.H{
+				"message": "This resource is not authorized",
+			})
+			c.Abort()
+		}
+	}
+	return r
 }
 
 // TransformAction action tran
@@ -57,9 +63,6 @@ func TransformAction(action string) []Action {
 
 // Can do what
 func (role *Role) Can(action string) gin.HandlerFunc {
-	if role.FailureHandler == nil {
-		role.FailureHandler = defaultFailureHandler
-	}
 	return func(c *gin.Context) {
 		can := role.RoleHandler(c, action)
 		if !can {
@@ -73,9 +76,6 @@ func (role *Role) Can(action string) gin.HandlerFunc {
 
 // Can1 do what
 func (role *Role) Can1(action string) gin.HandlerFunc {
-	if role.FailureHandler == nil {
-		role.FailureHandler = defaultFailureHandler
-	}
 	return func(c *gin.Context) {
 		can := role.RoleHandler1(c, action)
 		if !can {
@@ -89,9 +89,6 @@ func (role *Role) Can1(action string) gin.HandlerFunc {
 
 // Can2 do what
 func (role *Role) Can2(action string) gin.HandlerFunc {
-	if role.FailureHandler == nil {
-		role.FailureHandler = defaultFailureHandler
-	}
 	return func(c *gin.Context) {
 		can := role.RoleHandler2(c, action)
 		if !can {
@@ -105,9 +102,6 @@ func (role *Role) Can2(action string) gin.HandlerFunc {
 
 // Can3 do what
 func (role *Role) Can3(action string) gin.HandlerFunc {
-	if role.FailureHandler == nil {
-		role.FailureHandler = defaultFailureHandler
-	}
 	return func(c *gin.Context) {
 		can := role.RoleHandler3(c, action)
 		if !can {
@@ -121,9 +115,6 @@ func (role *Role) Can3(action string) gin.HandlerFunc {
 
 // Can4 do what
 func (role *Role) Can4(action string) gin.HandlerFunc {
-	if role.FailureHandler == nil {
-		role.FailureHandler = defaultFailureHandler
-	}
 	return func(c *gin.Context) {
 		can := role.RoleHandler4(c, action)
 		if !can {
@@ -137,9 +128,6 @@ func (role *Role) Can4(action string) gin.HandlerFunc {
 
 // Can5 do what
 func (role *Role) Can5(action string) gin.HandlerFunc {
-	if role.FailureHandler == nil {
-		role.FailureHandler = defaultFailureHandler
-	}
 	return func(c *gin.Context) {
 		can := role.RoleHandler5(c, action)
 		if !can {
@@ -153,9 +141,6 @@ func (role *Role) Can5(action string) gin.HandlerFunc {
 
 // Can6 do what
 func (role *Role) Can6(action string) gin.HandlerFunc {
-	if role.FailureHandler == nil {
-		role.FailureHandler = defaultFailureHandler
-	}
 	return func(c *gin.Context) {
 		can := role.RoleHandler6(c, action)
 		if !can {
