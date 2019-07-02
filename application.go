@@ -168,7 +168,7 @@ func (role *Role) Can6(action string) gin.HandlerFunc {
 }
 
 // Plugin for role
-func (role *Role) Plugin() bulrush.PNRet {
+func (role *Role) Plugin() interface{} {
 	return func() *Role {
 		return role
 	}
