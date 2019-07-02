@@ -8,7 +8,6 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/2637309949/bulrush"
 	"github.com/gin-gonic/gin"
 )
 
@@ -20,7 +19,6 @@ type (
 	}
 	// Role for role
 	Role struct {
-		bulrush.PNBase
 		FailureHandler func(*gin.Context, string)
 		RoleHandler    func(*gin.Context, string) bool
 		RoleHandler1   func(*gin.Context, string) bool
@@ -168,8 +166,6 @@ func (role *Role) Can6(action string) gin.HandlerFunc {
 }
 
 // Plugin for role
-func (role *Role) Plugin() interface{} {
-	return func() *Role {
-		return role
-	}
+func (role *Role) Plugin() *Role {
+	return role
 }
