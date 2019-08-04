@@ -6,7 +6,6 @@ package role
 
 import (
 	"net/http"
-	"strings"
 
 	"github.com/gin-gonic/gin"
 )
@@ -32,25 +31,11 @@ type (
 
 // default failure handlerss
 var defaultFailureHandler = func(c *gin.Context, action string) {
-	c.JSON(http.StatusBadRequest, gin.H{
-		"message": "This resource is not authorized",
+	c.JSON(http.StatusInternalServerError, gin.H{
+		"message": "Internal Server Error",
+		"stack":   "this resource is not authorized",
 	})
 	c.Abort()
-}
-
-// TransformAction action tran
-func TransformAction(action string) []Action {
-	actStrs := strings.Split(action, ";")
-	actions := make([]Action, 0)
-	for _, act := range actStrs {
-		rpStr := strings.Split(act, "@")
-		if len(rpStr) == 1 {
-			actions = append(actions, Action{Roles: strings.Split(rpStr[0], ",")})
-		} else if len(rpStr) == 2 {
-			actions = append(actions, Action{Roles: strings.Split(rpStr[0], ","), permits: strings.Split(rpStr[1], ",")})
-		}
-	}
-	return actions
 }
 
 // Can do what
