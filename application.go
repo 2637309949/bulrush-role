@@ -7,6 +7,7 @@ package role
 import (
 	"net/http"
 
+	"github.com/2637309949/bulrush"
 	"github.com/gin-gonic/gin"
 )
 
@@ -153,4 +154,8 @@ func (role *Role) Can6(action string) gin.HandlerFunc {
 // Plugin for role
 func (role *Role) Plugin() *Role {
 	return role
+}
+
+// Pre for role
+func (role *Role) Pre(c *bulrush.Config) {
 }
