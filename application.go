@@ -33,8 +33,7 @@ type (
 // default failure handlerss
 var defaultFailureHandler = func(c *gin.Context, action string) {
 	c.JSON(http.StatusInternalServerError, gin.H{
-		"message": "Internal Server Error",
-		"stack":   "this resource is not authorized",
+		"message": "this resource is not authorized",
 	})
 	c.Abort()
 }
